@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="__PUBLIC__/static/publish/css/reset.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/resetcss/normalize.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"  href="__PUBLIC__/Home/css/static/footer/footerStyle.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/publish/css/style.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/aboutus/css/main.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/loading/css/loading.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/center/centerStyle.css">
+    <script src='//cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+    <script src='//cdn.bootcss.com/jquery/1.11.3/jquery.js'></script>
+    <script src="__PUBLIC__/static/jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+        function MVC(p,c,a){
+            return "{:U('"+p+"/"+c+"/"+a+"')}";
+        }
+        var path = "__PUBLIC__/";
+    </script>
+    <script src="__PUBLIC__/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/Home/static/footer.js"></script>
+    <script src="__PUBLIC__/static/aboutus/js/aboutus.js"></script>
+    <script src="__PUBLIC__/static/vue/vue.js"></script>
+    <script src="__PUBLIC__/static/loading/js/Loading.js"></script> <!--页面加载等待-->
+    <script src="__PUBLIC__/Home/js/center/center.js"></script>
+    <link rel='stylesheet' href='__PUBLIC__/static/sendMsg/css/animate.min.css'>
+    <link rel="stylesheet" href="__PUBLIC__/static/sendMsg/css/notification.css">
+    <script src="__PUBLIC__/static/sendMsg/js/notification.js"></script>
+    <script src="__PUBLIC__/Home/static/push.js"></script>
+</head>
+<body class="bg">
+<div class="publish-img"><img src="__PUBLIC__/Home/img/images/public_secret.png">
+    <div class="close"><img src="__PUBLIC__/Home/img/xianyu/taolive_close.png"></div>
+</div>
+<!--未登录时显示头部-->
+<header style="display: none">
+<div class="container-fluid moheader">
+    <div class="row text-center">
+        <div class="col-xs-6">
+            <div class="row text-center">
+                <div class="col-xs-12">
+                    <h4>欢迎来到二货</h4>
+                </div>
+            </div>
+            <div class="row text-center">
+                <button type="button" class="btn btn-yel">马上登录</button>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <img src="__PUBLIC__/Home/img/xianyu/empty_pond_for_admin.png" class="logo1">
+        </div>
+    </div>
+</div>
+</header>
+<!--登录状态显示头部-->
+<header style="display: block">
+    <div class="container userMsg">
+        <a href="{:U('Home/Center/PersonalInfo')}" class="row text-left main" style="display: block;">
+            <div class="col-xs-8">
+                <h4 id="nickName">小二货</h4>
+                <p class="detail">虽然没挣到钱，但在二货开心就好</p>
+            </div>
+            <div class="col-xs-4  text3">
+                <div class="col-xs-6 text-right"><img id="head_por" src="__PUBLIC__/Home/img/xianyu/aliuser_place_holder.jpg" class="img-circle"></div>
+                <div class="col-xs-2 col-xs-offset-1 text-right"><img src="__PUBLIC__/Home/img/xianyu/entry_arrow.png" class="logo3"></div>
+            </div>
+        </a>
+    </div>
+    <div class="container">
+        <div class="row text-center num1">
+            <div id="b_praised" class="col-xs-4">0</div>
+            <div id="grade" class="col-xs-4">0</div>
+            <div id="reputation" class="col-xs-4">0</div>
+        </div>
+        <div class="row text-center num2">
+            <div class="col-xs-4">被赞数</div>
+            <div class="col-xs-4">等级</div>
+            <div class="col-xs-4">信誉度</div>
+        </div>
+    </div>
+</header>
+<div class="container content">
+    <div class="row text-left main">
+        <div class="col-xs-2"><img src="__PUBLIC__/Home/img/xianyu/entry_icon_on_shelf.png" class="logo1"></div>
+        <a href="{:U('Home/Center/MyPublish')}" class="col-xs-10 text" style="display: block">
+            <div class="col-xs-8 text1">我发布的</div>
+            <div id="release" class="col-xs-1 text-right text2">0</div>
+            <div class="col-xs-2 text-right"><img src="__PUBLIC__/Home/img/xianyu/entry_arrow.png" class="logo2"></div>
+        </a>
+    </div>
+    <div class="row text-left main">
+        <div class="col-xs-2"><img src="__PUBLIC__/Home/img/xianyu/entry_icon_sold.png" class="logo1"></div>
+        <a href="{:U('Home/Center/MySale')}" class="col-xs-10 text" style="display: block">
+            <div class="col-xs-8 text1">我卖出的</div>
+            <div id="sellOut" class="col-xs-1 text-right text2">0</div>
+            <div class="col-xs-2 text-right"><img src="__PUBLIC__/Home/img/xianyu/entry_arrow.png" class="logo2"></div>
+        </a>
+    </div>
+    <div class="row text-left main">
+        <div class="col-xs-2"><img src="__PUBLIC__/Home/img/xianyu/entry_icon_bought.png" class="logo1"></div>
+        <a href="{:U('Home/Center/MyBuy')}" class="col-xs-10 text" style="display: block">
+            <div class="col-xs-8 text1">我买到的</div>
+            <div id="buyOne" class="col-xs-1 text-right text2">0</div>
+            <div class="col-xs-2 text-right"><img src="__PUBLIC__/Home/img/xianyu/entry_arrow.png" class="logo2"></div>
+        </a>
+    </div>
+    <div class="row text-left main">
+        <div class="col-xs-2"><img src="__PUBLIC__/Home/img/xianyu/entry_icon_favourite.png" class="logo1"></div>
+        <a href="{:U('Home/Center/MyZan')}" class="col-xs-10 text" style="display: block">
+            <div class="col-xs-8 text1">我赞过的</div>
+            <div id="zan" class="col-xs-1 text-right text2">0</div>
+            <div class="col-xs-2 text-right"><img src="__PUBLIC__/Home/img/xianyu/entry_arrow.png" class="logo2"></div>
+        </a>
+    </div>
+    <div class="row text-left main">
+        <div class="col-xs-2"><img src="__PUBLIC__/Home/img/xianyu/entry_icon_paimai.png" class="logo1"></div>
+        <a href="{:U('Home/Center/MyAuction')}" class="col-xs-10 text" style="display: block">
+            <div class="col-xs-8 text1">我的拍卖</div>
+            <div class="col-xs-1 text-right text2">0</div>
+            <div class="col-xs-2 text-right"><img src="__PUBLIC__/Home/img/xianyu/entry_arrow.png" class="logo2"></div>
+        </a>
+    </div>
+    <div class="row text-left main">
+        <div class="col-xs-2"><img src="__PUBLIC__/Home/img/xianyu/icon_big_coins.png" class="logo1"></div>
+        <a href="{:U('Home/Center/MyMoney')}" class="col-xs-10 text" style="display: block">
+            <div class="col-xs-8 text1">我的余额/优惠券</div>
+            <div class="col-xs-1 text-right text2">0</div>
+            <div class="col-xs-2 text-right"><img src="__PUBLIC__/Home/img/xianyu/entry_arrow.png" class="logo2"></div>
+        </a>
+    </div>
+    <div class="row text-left main">
+        <div class="col-xs-2"><img src="__PUBLIC__/Home/img/xianyu/entry_icon_pp.png" class="logo1"></div>
+        <a href="{:U('Home/Center/MyAddr')}" class="col-xs-10 text" style="display: block">
+            <div class="col-xs-8 text1">收货地址</div>
+            <div class="col-xs-1 text-right text2"></div>
+            <div class="col-xs-2 text-right"><img src="__PUBLIC__/Home/img/xianyu/entry_arrow.png" class="logo2"></div>
+        </a>
+    </div>
+</div>
+
+<div class="container bottom ">
+    <div class="row text-left main about-us">
+        <div class="col-xs-2"><img src="__PUBLIC__/Home/img/xianyu/default_pond_logo.png" class="logo1"></div>
+        <div class="col-xs-10 text3">
+            <div class="col-xs-8 text1">关于二货</div>
+            <div class="col-xs-1 text-right text2"></div>
+            <div class="col-xs-2  text-right"><img src="__PUBLIC__/Home/img/xianyu/entry_arrow.png" class="logo2"></div>
+        </div>
+    </div>
+</div>
+
+<footer id="footer">
+</footer>
+
+<!--关于我们弹窗插件-->
+<div id="goodcover"></div>
+
+<div id="code">
+    <div class="close1"><a href="javascript:void(0)" id="closebt"><img src="__PUBLIC__/static/aboutus/images/close.gif"></a></div>
+    <div class="goodtxt">
+        <p>'二货'由four团队开发</p>
+        <p>人人都有闲置，倒卖二手</p>
+        <p>二货让您感受买卖的最佳体验！</p>
+    </div>
+    <div class="code-img"><img id="ewmsrc"  src="__PUBLIC__/Home/img/images/logo.png"></div>
+</div>
+</body>
+</html>

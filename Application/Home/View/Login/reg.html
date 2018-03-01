@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="__PUBLIC__/static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="__PUBLIC__/Home/css/reg/reg.css">
+    </head>
+    <body>
+        <header class="text-center">
+            用户会员注册
+        </header>
+        <div class="container">
+            <div class="row head-img">
+                <div class="col-sm-4 col-xs-4 col-sm-offset-4 col-xs-offset-4 text-center">
+                    <img src="__PUBLIC__/Home/img/xianyu/aliuser_place_holder.jpg" class="img-responsive img-circle">
+                </div>
+            </div>
+            <form action="" method="POST">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 ">
+                                <div class="input-group input-div">
+                                    <span class="input-group-addon">
+                                        <img src="__PUBLIC__/Home/img/images/account_icon.png" >
+                                        用户账号
+                                    </span>
+                                    <input id="account" type="text" class="form-control" placeholder="输入用户账号" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row tip">
+                            <span class="accInfo"></span>
+                        </div>
+                    </div>  
+                   <!--  <div class="col-xs-12 col-sm-12 account-wrapper">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 label-0">
+                                <label for="account" class="text-justify">账号:</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8">
+                                <input type="text" id="account">
+                            </div>                       
+                        </div>
+                        <div class="row tip">
+                            <span class="accInfo"><i class="warn"></i></span>
+                        </div>
+                    </div>  --> 
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 ">
+                                <div class="input-group input-div">
+                                    <span class="input-group-addon">
+                                        <img src="__PUBLIC__/Home/img/images/pwd_icon.png" >
+                                        登录密码
+                                    </span>
+                                    <input id="pwd" type="password" class="form-control" placeholder="输入登录密码" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="strong">
+                                <p class="fl">
+                                    <span class="">弱</span>
+                                    <span class="">中</span>
+                                    <span class="">强</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row tip">
+                            <span class="pwdInfo"></span>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-12 passWord-wrapper">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 label-0">
+                                <label for="pwd">登录密码:</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8">
+                                <input type="password" id="pwd" >
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="strong">
+                                <p class="fl">
+                                    <span class="hover">弱</span>
+                                    <span class="">中</span>
+                                    <span class="">强</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row tip">
+                            <span class="pwdInfo"></span>
+                        </div>  
+                    </div>  --> 
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 ">
+                        <div class="input-group input-div">
+                            <span class="input-group-addon">
+                                <img src="__PUBLIC__/Home/img/images/sure_pwd_icon.png" >
+                                确认密码
+                            </span>
+                            <input id="pwd1" type="password" class="form-control" disabled="" placeholder="再次输入密码" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 tip">
+                        <span class="pwd1Info"></span>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-12 passWord1-wrapper">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 label-0">
+                                <label for="pwd1">确认密码:</label>
+                            </div>
+                            <div class="col-xs-8 col-sm-8">
+                                <input type="password" id="pwd1" disabled="">
+                            </div>
+                        </div>
+                        <div class="row tip">
+                            <span class="pwd1Info"></span>
+                        </div>
+                    </div> -->
+                </div>
+ 
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12 btn-wrapper">
+                        <input id="reg" type="button" class="btn btn-warning" value="同意协议并注册">
+                    </div>
+                </div>
+            </form>  
+        </div>
+        <script>
+            function  MVC(a,b,c) {
+                var a1 = "{:U('"+a+"/"+b+"/"+c+"')}"
+                return a1;
+            }
+        </script>
+        <script src="__PUBLIC__/static/jquery/jquery.min.js"></script>
+        <script src="__PUBLIC__/static/layer/layer.js"></script>
+        <script src="__PUBLIC__/static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="__PUBLIC__/static/vue/vue.js"></script>
+        <script src="__PUBLIC__/Home/js/reg/reg.js"></script>
+    </body>
+</html>

@@ -1,0 +1,115 @@
+.content,header{
+    background-color: #FFFFFF;
+}
+.my-publish{
+    margin-top: 15px;
+    margin-bottom: 10px;
+    line-height: 20px;
+}
+.con-my-publish{
+    background-color: #fff;
+}
+.my-publish-title{
+    font-weight: 500;
+    font-size: 18px;
+}
+.btn-yel{
+    background-color: #FFda45;
+    font-size: 12px;
+    padding: 3px 12px;
+    border-radius: 0;
+}
+.logo1{
+    width: 100%;
+    height: 100%;
+}
+.logo2{
+    margin: 7px;
+    height: 16px;
+    line-height: 30px;
+}
+.main{
+    margin: 10px 0;
+}
+.main input{
+    border: 0;
+}
+.main .text{
+    border-bottom: 1px solid #eee;
+    padding: 0;
+    padding-bottom: 5px;
+}
+.main .text1{
+    padding: 0;
+    line-height: 30px;
+}
+.main .text2{
+    padding: 0;
+    line-height: 30px;
+}
+.main .text3{
+    padding: 0;
+}
+.main .text span{
+    height: 100%;
+    vertical-align: middle;
+}
+h4{
+    font-family: "Microsoft YaHei";
+}
+
+.bg{
+    background-color: #f7f7f7;
+    padding: 0;
+}
+.background{
+    background: url(../../img/images/bg1.png);
+    background-size: 100% 100%;
+}
+.bg header{
+    padding: 0;
+}
+.text div[class ^='col-xs']{
+    padding: 0;
+}
+.text3 div[class ^='col-xs']{
+    padding: 0;
+}
+.content{
+    padding-right:0;
+}
+.img-circle{
+    width: 35px;
+    height: 35px;
+}
+.detail{
+    font-size: 10px;
+    color: #9d9d9d;
+}
+.userMsg{
+    border-bottom: 1px solid #eee;
+    background-color:#f7f7f7;
+}
+.camera{
+    margin-top: 35px;
+}
+.publish img{
+    width: 70px;
+}
+footer{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+#sex_dummy{
+    border: 0;
+}
+.btn-pwd{
+    background-color: #FFda45;
+    font-size: 12px;
+    border-radius: 0;
+}
+.con-load div[class ^='col-xs']{
+    padding: 0;
+    padding-bottom: 5px;
+}

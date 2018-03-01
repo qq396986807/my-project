@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>用户详细信息</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="__PUBLIC__/static/resetcss/normalize.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/mycss/userInfo.css">
+
+    <script src="__PUBLIC__/static/jquery/jquery.min.js"></script>
+    <script src="__PUBLIC__/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/static/vue/vue.js"></script>
+    <script>
+    	var url = "{:U('Admin/huser/huser')}";
+    	var urlLock = "{:U('Admin/huser/huserLock')}";
+    </script>
+    <script type="text/javascript" src='__PUBLIC__/static/layer/layer.js'></script>
+    <script type="text/javascript" src='__PUBLIC__/Admin/myjs/userInfo.js'></script>
+</head>
+<body>
+	<div class="container" id="content">
+		<div class="row">
+			<!-- 用户信息 -->
+			<div class="col-md-4 col-lg-4 lside">
+
+				<foreach name='user' item='vo'>
+					<div class="row">
+						<div class="col-md-4 col-lg-4">
+					 		<a href="{:U('Admin/huser/huser')}">返回</a>
+					 	</div>
+					 	<div class="col-md-4 col-lg-4">
+					 		<img src="{$vo.h_head}" class="img-responsive">
+					 	</div>
+					</div>
+					<p class="lead">基本信息</p>
+					<hr>
+					<div class="row info-box">
+					 	<div class="col-md-12 col-lg-12">
+					 		<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		账号
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		{$vo.h_nick}
+							 	</div>
+							</div>
+							<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		性别
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		<if condition="$vo['h_sex'] eq 1">男
+							 			<else />女
+							 		</if>
+							 	</div>
+							</div>
+							<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		等级
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		<if condition="$vo['h_grade'] lt 4">白银{$vo['h_grade']}
+							 			<elseif condition="$vo['h_grade'] lt 7" />黄金{$vo['h_grade'] - 3}
+							 			<elseif condition="$vo['h_grade'] lt 10" />钻石{$vo['h_grade'] - 6}
+							 			<else />最强王者
+							 		</if>
+							 	</div>
+							</div>
+							<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		信誉
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		{$vo.h_honor}
+							 	</div>
+							</div>
+							<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		注册时间
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		{$vo.h_regtime}
+							 	</div>
+							</div>
+							<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		上次登录时间
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		{$vo.h_loginlasttime}
+							 	</div>
+							</div>
+							<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		上次登录地点
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		{$vo.h_add}
+							 	</div>
+							</div>
+					 	</div>
+					</div>
+					<p class="lead">金额</p>
+					<hr>
+					<div class="row info-box"> 
+					 	<div class="col-md-12 col-lg-12">
+					 		<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		余额
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		{$vo.h_money}
+							 	</div>
+							</div>
+					 	</div>
+					</div>
+					<p class="lead">安全信息</p>
+					<hr>
+					<div class="row info-box">
+					 	<div class="col-md-12 col-lg-12">
+					 		<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		手机号码
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		{$vo.h_tel}
+							 	</div>
+							</div>
+							<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		邮箱
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		{$vo.h_email}
+							 	</div>
+							</div>
+							<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		密码
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		<input type="password" value="******" disabled style="border:0">
+							 	</div>
+							</div>
+							<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		支付密码
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		<input type="password" value="******" disabled style="border:0">
+							 	</div>
+							</div>
+							<div class="row">
+							 	<div class="col-md-5 col-lg-5">
+							 		openId
+							 	</div>
+							 	<div class="col-md-7 col-lg-7">
+							 		<input type="password" value="******" disabled style="border:0">
+							 	</div>
+							</div>
+					 	</div>
+					</div>
+				</foreach>	 
+			</div>
+
+			<!-- 用户商品信息 -->
+			<div class="col-md-8 col-lg-8 rside">
+				<nav class="navbar navbar-inverse">
+			      	<div class="container-fluid">
+			        <!-- Brand and toggle get grouped for better mobile display -->
+			        	<div class="navbar-header">
+			          		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9" aria-expanded="false">
+				            	<span class="sr-only">Toggle navigation</span>
+				            	<span class="icon-bar"></span>
+				            	<span class="icon-bar"></span>
+				            	<span class="icon-bar"></span>
+			          		</button>
+			          		<a class="navbar-brand" href="#">用户商品信息</a>
+			        	</div>
+
+			        <!-- Collect the nav links, forms, and other content for toggling -->
+				        <div class="navbar-collapse collapse">
+				          	<ul class="nav navbar-nav" role="tablist">
+				          		<if condition="$_GET['tab'] eq 1 or isset($_GET['tab']) neq true">
+					            	<li class="active"><a href="{:U('Admin/huser/userInfo',array("tab"=>1,"hid"=>$_GET['hid']))}">&nbsp;&nbsp;购买的&nbsp;&nbsp;</a></li>
+					            	<else />
+					            	<li><a href="{:U('Admin/huser/userInfo',array("tab"=>1,"hid"=>$_GET['hid']))}">&nbsp;&nbsp;购买的&nbsp;&nbsp;</a></li>
+				            	</if>
+				            	<if condition="$_GET['tab'] eq 2">
+				            		<li class="active"><a href="{:U('Admin/huser/userInfo',array("tab"=>2,"hid"=>$_GET['hid']))}">&nbsp;&nbsp;拍到的&nbsp;&nbsp;</a></li>
+				            		<else />
+				            		<li><a href="{:U('Admin/huser/userInfo',array("tab"=>2,"hid"=>$_GET['hid']))}">&nbsp;&nbsp;拍到的&nbsp;&nbsp;</a></li>
+				            	</if>
+				            	<if condition="$_GET['tab'] eq 3">
+				            		<li class="active"><a href="{:U('Admin/huser/userInfo',array("tab"=>3,"hid"=>$_GET['hid']))}">&nbsp;&nbsp;发布的商品&nbsp;&nbsp;</a></li>
+				            		<else />
+				            		<li><a href="{:U('Admin/huser/userInfo',array("tab"=>3,"hid"=>$_GET['hid']))}">&nbsp;&nbsp;发布的商品&nbsp;&nbsp;</a></li>
+				            	</if>
+				            	<if condition="$_GET['tab'] eq 4">
+				            		<li class="active"><a href="{:U('Admin/huser/userInfo',array("tab"=>4,"hid"=>$_GET['hid']))}">&nbsp;&nbsp;发布的拍品&nbsp;&nbsp;</a></li>
+				            		<else />
+				            		<li><a href="{:U('Admin/huser/userInfo',array("tab"=>4,"hid"=>$_GET['hid']))}">&nbsp;&nbsp;发布的拍品&nbsp;&nbsp;</a></li>
+				            	</if>
+				          	</ul>
+				        </div>
+			      	</div>
+			    </nav>
+
+				<div class="tab-content">
+				 	<if condition="$_GET['tab'] lt 3">
+					 	<div class="tab-pane active" id="tab-buy">
+					 		<table class="table table-bordered">
+					 			<tr>
+					 				<th class="text-center">订单编号</th>
+					 				<th class="text-center">图片</th>
+					 				<th class="text-center">名称</th>
+					 				<th class="text-center">价格</th>
+					 				<th class="text-center">数量</th>
+					 				<th class="text-center">类型</th>
+					 				<th class="text-center">下单时间</th>
+					 			</tr>
+					 			<foreach name='order' item='vo'>
+					 				<tr>
+					 					<td class="text-center">{$vo['o_number']}</td>
+						 				<td class="text-center">图片</td>
+						 				<td class="text-center">
+						 					<if condition="empty($vo['n_name']) neq true">{$vo.n_name}
+						 						<else />{$vo.p_name}
+						 					</if>
+						 				</td>
+						 				<td class="text-center">{$vo['o_money']}</td>
+						 				<td class="text-center">{$vo['o_count']}</td>
+						 				<td class="text-center">{$classify[$vo['c_id']['c_name']]}</td>
+						 				<td class="text-center">{$vo['o_time']}</td>
+					 				</tr>
+					 			</foreach>
+					 			<tr>
+					 				<td colspan="7">
+					 					<div class='pageBox'>{$page}</div>
+					 				</td>
+					 			</tr>
+					 		</table>
+					 	</div>
+					<else />
+				 		<table class="table table-bordered ">
+				 			<tr >
+				 				<th class="text-center">图片</th>
+				 				<th class="text-center">名称</th>
+				 				<th class="text-center">价格</th>
+				 				<th class="text-center">数量</th>
+				 				<th class="text-center">类型</th>
+				 				<th class="text-center">发布时间</th>
+				 			</tr>
+				 			<foreach name='order' item='vo'>
+				 				<tr>
+				 					<if condition="$_GET['tab'] eq 3">
+						 				<td class="text-center">图片</td>
+						 				<td class="text-center">{$vo.n_name}</td>
+						 				<td class="text-center">{$vo.n_price}</td>
+						 				<td class="text-center">1</td>
+						 				<td class="text-center">{$classify[$vo['c_id']['c_name']]}</td>
+						 				<td class="text-center">{$vo.n_time}</td>
+						 				<else />
+						 				<td class="text-center">图片</td>
+						 				<td class="text-center">{$vo.p_name}</td>
+						 				<td class="text-center">{$vo.p_price}</td>
+						 				<td class="text-center">1</td>
+						 				<td class="text-center">{$classify[$vo['c_id']['c_name']]}</td>
+						 				<td class="text-center">{$vo.p_time}</td>
+					 				</if>
+					 			</tr>
+				 			</foreach>
+				 			<tr>
+				 				<td colspan="6">
+				 					<div class='pageBox'>{$page}</div>
+				 				</td>
+				 			</tr>
+				 		</table>
+				 	</if>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

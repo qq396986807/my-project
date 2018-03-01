@@ -1,0 +1,226 @@
+/*
+*   首页样式
+**/
+
+/*头部样式*/
+
+header{
+    color: #000;
+}
+header [class^='col-sm'], header [class^='col-xs']{
+    padding:0 ;
+    line-height: 32px;
+}
+header #location{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+header .form-group{
+    margin: 0;
+}
+header form img{
+    width: 18px;
+    height: 18px;
+}
+header #sec-btn{
+    border: 0;
+    outline: none;
+    background-color:inherit ;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+header .list img{
+	width: 24px;
+	max-height: 24px;
+	margin: 2px 8px 0 0 ;
+}
+.publish-img{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 9900;
+	display: none;
+}
+.publish-img img{
+	width: 100%;
+	height:100%;
+}
+.close{
+	position: fixed;
+	background-color: #565656;
+	z-index: 9999;
+	width: 10%;
+	height: 6%;
+	bottom: 5%;
+	left: 45%;
+}
+.close img{
+	width: 100%;
+}
+/* 搜索框内容显示样式 */
+.search-info{
+	position: absolute;
+	top: 40px;
+	left:0;
+	background-color: #fff;
+	z-index:9999;
+	width: 100%;
+	display: none;
+}
+.search-info img{
+	max-width: 32px;
+}
+.search-info .row{
+	padding: 6px 0;
+	border-bottom: 1px solid #ddd;
+	font-size: 13px;
+	line-height: 28px;
+}
+
+/*内容样式*/
+
+/*分类导航*/
+/* .classify-bar{
+    width: 100%;
+    height: auto;
+    max-height: 80px;
+} */
+.classify-bar div[class^='col-']{
+	margin: 6px 0 3px 0;
+}
+.classify-bar div a{
+	color: #333;
+	display: inline-block;
+}
+.classify-bar div a img{
+	width: 60px;
+	max-height: 70px;
+}
+/* 拍卖栏样式 */
+.auction{
+  border-bottom: 1px solid #eee;
+}
+.auction .row{
+	border-top: 1px solid #eee;
+}
+.auction h3 span{
+	font-size: 18px;
+}
+.auction h3>img{
+	max-width: 22px;
+}
+.auction h3 span img{
+	    width: 106px;
+      height: auto;
+}
+.auction-goods{
+  width: 50%;
+  height: 165px;
+}
+.auction-goods a{
+	display: inline-block;
+	width: 100%;
+	height:100%;
+	position: relative;
+  padding:10px 0;
+}
+.auction-goods a img{
+	width: 100%;
+	height: 75%;
+}
+.auction-goods a h5{
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: #fff;
+}
+.auction-goods a p{
+	width: 100%;
+	height: 21px;
+	line-height: 21px;
+	font-size: 15px;
+	white-space: nowrap;/*强制不换行*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.auction .more {
+  padding: 0;
+}
+.auction .more a{
+  display: inline-block;
+  width: 90px;
+  height: 30px;
+  background-image: url('../../../Home/img/images/more.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+
+/*新鲜的、附近的样式*/
+#menu-wrap{
+    height: 46px;
+    width: 100%;
+    background-color: #fff;
+}
+.menu{
+    width: 100%;
+    z-index: 1;
+    background-color: #fff;
+}
+.menuFixed{
+    position: fixed;
+    top:0;
+    left:0;
+}
+nav ul.nav li a{
+	padding-left: 0;
+	padding-right:0;
+}
+nav ul li.active a{
+    border-bottom: 3px solid #ffda45;
+}
+.show-goods{
+    height: auto;
+	width:100%;
+	padding-top: 4px;
+	padding-bottom: 78px;
+}
+.signal-goods{
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+.goods-img>div{
+	width: 33.33%;
+	height: 100px;
+	padding: 0 6px;
+}
+.goods-img>div img{
+	width: 100%;
+	height: 100%;
+}
+.con-my-publish{
+	background-color:#f7f7f7;
+}
+.my-classify{
+	background-color:#fff;
+	display: none;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 5;
+}
+.classify p{
+	border-bottom: 1px solid #ccc;
+	margin:10px;
+	line-height: 25px;
+}
+.my-publish img{
+	width: 20px;
+	margin-top: 10px;
+}
+.my-publish-title{
+	font-size: 18px;
+}

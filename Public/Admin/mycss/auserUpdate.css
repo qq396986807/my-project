@@ -1,0 +1,10 @@
+/*后台用户添加、修改样式*/
+
+form{
+	width: 60%;
+	max-width: 80%;
+	margin: 20px auto;
+}
+.container{
+	margin-top: 30px;
+}

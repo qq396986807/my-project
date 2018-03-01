@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>我的发布</title>
+    <link rel="stylesheet" href="__PUBLIC__/static/resetcss/normalize.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/center/MyPublishStyle.css">
+
+    <link rel="stylesheet" href="__PUBLIC__/static/loading/css/loading.css">
+    <script src='//cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+    <script src='//cdn.bootcss.com/jquery/1.11.3/jquery.js'></script>
+    <script src="__PUBLIC__/static/layer/mobile/layer.js"></script>
+
+    <script src="__PUBLIC__/static/jquery/jquery.min.js"></script>
+    <script src="__PUBLIC__/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/static/vue/vue.js"></script>
+    <script src="__PUBLIC__/static/loading/js/Loading.js"></script> <!--页面加载等待-->
+    <script src="__PUBLIC__/Home/static/Package.js"></script>
+    <link rel='stylesheet' href='__PUBLIC__/static/sendMsg/css/animate.min.css'>
+    <link rel="stylesheet" href="__PUBLIC__/static/sendMsg/css/notification.css">
+    <script src="__PUBLIC__/static/sendMsg/js/notification.js"></script>
+    <script src="__PUBLIC__/Home/static/push.js"></script>
+    <script>
+        $(function () {
+            function MVC(p,c,a){
+                return "{:U('"+p+"/"+c+"/"+a+"')}";
+            }
+
+            $('#menu-wrap').on('click','nav ul li',function () {
+                $(this).addClass('active').siblings().removeClass('active');
+                if($(this).index() == 0){   //宝贝
+
+                }else if($(this).index() == 1){     //问答
+
+                }
+            })
+            //便利发布商品
+            var RelGoods = MVC('Home','Center','RelGoods');
+            $.post(RelGoods,{},function (data) {
+                var falg = 0;
+                if(data!=''){
+                    for(var i=0;i<data[0].length;i++){
+                        if(data[0][i]['n_status']!=0){
+                            var state ;
+                            if(data[0][i]['n_status']==1){state='上架中'}
+                            if(data[0][i]['n_status']==2){state='审核中'}
+                            if(data[0][i]['n_status']==3){state='审核失败'}
+                            for(var j=0;j<data[1].length;j++){
+                                if(data[0][i]['n_id']==data[1][j]['n_id']){
+                                    var mygoods=new Package_Publish(""+data[1][j]['n_img']+"",""+data[0][i]['n_name']+"",""+data[0][i]['n_price']+"",'20','20',state,""+data[0][i]['n_id']+"");
+                                    mygoods.setFather('goods');
+                                    falg=1;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(falg==1){
+                    $("#boxDiv").html("");
+                }
+            },'json')
+            $("body").on('click','.shelves',function () {
+                var shelves = MVC('Home','Center','shelves');
+                $.post(shelves,{n_id:$(this).attr("sign")},function () {
+                    layer.open({
+                        content:'下架成功！',
+                        time:0,
+                        btn:['确定'],
+                        yes:function(index){
+                            layer.close(index);
+                            window.location.reload();
+                        }
+                    })
+                })
+            })
+            $('.back').click(function () {
+                window.location.href=MVC("Home","Center","Center");
+            })
+        })
+    </script>
+</head>
+<body class="bg">
+<header>
+    <div class="container con-my-publish">
+        <div class="row my-publish">
+            <div class="col-xs-2 back"><img src="__PUBLIC__/Home/img/xianyu/aliuser_title_back_normal.9.png" width="20" height="20"></div>
+            <div class="col-xs-4 col-xs-offset-2 text-center my-publish-title">我发布的</div>
+            <a href="{:U('Home/Center/UnderSale')}" class="col-xs-4 text-right" style="display: block;color:#2a3542">下架宝贝</a>
+        </div>
+    </div>
+</header>
+    <div class="container ban-my-publish">
+        <div class="col-sm-12 col-xs-12" id="menu-wrap">
+            <div class="menu">
+                <nav class="navbar navbar-default" role="navigation">
+                    <ul class="nav navbar-nav">
+                        <li  role="presentation" class="col-sm-4 col-xs-4 col-sm-offset-1 col-xs-offset-1 active text-center">
+                            <a href="javascript:">宝贝</a>
+                        </li>
+                        <li  role="presentation" class="col-sm-4 col-xs-4 col-sm-offset-2 col-xs-offset-2 text-center">
+                            <a href="javascript:">问答</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+<footer>
+    <div id="boxDiv" class="container">
+        <div class="row">
+            <div class="col-xs-6 text-center col-xs-offset-3"><img src="__PUBLIC__/Home/img/xianyu/page_empty.png" class="logo1"></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 text-center col-xs-offset-3"><span class="baby-span">还没有发布宝贝哦~</span></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 text-center col-xs-offset-3">
+                <button type="button" class="btn btn-yel">发布宝贝</button>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="goods">
+
+</div>
+</body>
+</html>

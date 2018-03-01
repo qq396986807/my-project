@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>订单详情</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="__PUBLIC__/static/resetcss/normalize.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/orderDetail/orderDetailStyle.css">
+	<link rel="stylesheet" href="__PUBLIC__/static/loading/css/loading.css">
+    <script src="__PUBLIC__/static/jquery/jquery.min.js"></script>
+    <script src="__PUBLIC__/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/static/layer/mobile/layer.js"></script>
+    <script src="__PUBLIC__/static/vue/vue.js"></script>
+    <script type="text/javascript">
+    	function MVC(p,c,a){
+    		return "{:U('"+p+"/"+c+"/"+a+"')}";
+    	}
+    	var path = "__PUBLIC__/";
+    </script>
+    <script src="__PUBLIC__/static/loading/js/Loading.js"></script> <!--页面加载等待-->
+    <script type="text/javascript" src="__PUBLIC__/Home/js/orderDetail/orderDetail.js"></script>
+</head>
+<body>
+	<header class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12" >
+				<h4 class="text-center">订单详情</h4>
+			</div>
+		</div>
+	</header>
+	<div id="content">
+		<div class="container">
+			<div class="row order-status">
+				<div class="col-xs-12 col-sm-12">
+					<div v-if="orderInfo.o_status == 0" >
+						<p style="line-height: 60px;margin:0;font-size: 16px;">交易已关闭</p>
+					</div>
+					<div v-else-if="orderInfo.o_status == 1">
+						<div class="row">
+							<div class="col-sm-7 col-xs-7">
+								<p style="line-height: 60px;margin:0;font-size: 16px;">未付款</p>
+							</div>
+							<div class="col-sm-5 col-xs-5">
+								<button @click="goToPay(orderInfo.o_id)">去付款</button>
+							</div>
+						</div>
+					</div>
+					<div v-else-if="orderInfo.o_status == 2">
+						<p style="line-height: 60px;margin:0;font-size: 16px;">已付款，等待卖家发货。。。</p>
+					</div>
+					<div v-else-if="orderInfo.o_status == 3" >
+						<p style="line-height: 60px;margin:0;font-size: 16px;">已发货，请耐心等待收货。。。</p>
+					</div>
+					<div v-else-if="orderInfo.o_status == 4">
+						<div class="row">
+							<div class="col-sm-7 col-xs-7">
+								<p style="line-height: 60px;margin:0;font-size: 16px;">已签收</p>
+							</div>
+							<div class="col-sm-5 col-xs-5">
+								<button @click="sonfirmGoods">确认收获</button>
+							</div>
+						</div>
+					</div>
+					<div v-else >
+						<p style="line-height: 60px;margin:0;font-size: 16px;">交易成功</p>
+					</div>
+				</div>
+			</div>
+			<div class="row sale-box">
+
+				<div class="col-sm-12 col-xs-12 goods-info-div">
+					<div class="row">
+						<div class="col-sm-3 col-xs-3">
+							<img :src="img.n_img" class="img-responsive">
+						</div>
+						<div class="col-sm-9 col-xs-9">
+							<p>{{goodsFlag == 'n'?orderInfo.n_name:orderInfo.p_name}}</p>
+							<p style="margin:0">￥<span>{{orderInfo.o_money}}</span></p>
+						</div>
+					</div>
+					<hr />
+				</div>
+
+				<div class="col-sm-12 col-xs-12 sale-info-div">
+					<div class="row">
+						<div class="col-sm-3 col-xs-3" style="padding-right: 0;">
+							<p><b>卖家</b></p>
+							<p><b>收货人</b></p>
+							<p><b>收货地址</b></p>
+						</div>
+						<div class="col-sm-9 col-xs-9">
+							<p>{{orderInfo.h_nick == null?'null nickname':orderInfo.h_nick}} &nbsp; <button @click="contactSeller" v-show="goodsFlag=='n'">联系卖家</button></p>
+							<p>
+								<span>{{orderInfo.d_name}}</span>
+								&nbsp;&nbsp;&nbsp;
+								TEL：<span>{{orderInfo.d_tel}}</span></p>
+							<p>{{orderInfo.d_address}}</p>
+						</div>
+					</div>
+					<hr />
+				</div>
+
+				<div class="col-sm-12 col-xs-12 order-info-div">
+					<div class="row">
+						<div class="col-sm-3 col-xs-3" style="padding-right: 0;">
+							<p><b>订单编号</b></p>
+							<p><b>成交时间</b></p>
+						</div>
+						<div class="col-sm-9 col-xs-9">
+							<p><span>{{orderInfo.o_number}}</span></p>
+							<p>{{orderInfo.o_time}}</p>
+						</div>
+					</div>
+					<hr />
+				</div>
+				<div class="col-sm-12 col-xs-12 p-div">
+					<div class="row">
+						<div class="col-sm-7 col-xs-7">
+							
+						</div>
+						<div class="col-sm-5 col-xs-5 text-right">
+							<button :class="{success:orderInfo.o_status==5}" @click="appraise">评 价</button>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<p class="leader">交易提醒</p>
+		<p>1*卖家发货前，请向卖家充分了解商品情况，并约定交易细节。</p>
+		<p>2*请通过本客户端进行沟通约定，并保存相关聊天记录。</p>
+	</footer>
+</body>
+</html>

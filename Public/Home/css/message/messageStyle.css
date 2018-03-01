@@ -1,0 +1,65 @@
+/* <!-- 消息中心样式 --> */
+header{
+	width: 100%;
+	padding:6px 0;
+	height: 52px;
+	background-color: #FAFAFA;
+	border-bottom: 1px solid #eee;
+	font-size: 16px;
+	position: fixed;
+	top: 0;
+	left:0;
+	z-index: 9000;
+}
+.publish-img{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 9900;
+	display: none;
+}
+.publish-img img{
+	width: 100%;
+	height:100%;
+}
+.close{
+	position: fixed;
+	background-color: #565656;
+	z-index: 9999;
+	width: 10%;
+	height: 6%;
+	bottom: 5%;
+	left: 45%;
+}
+.close img{
+	width: 100%;
+}
+#content{
+	padding-top: 70px;
+	padding-bottom: 78px;
+}
+/* .chat-list-single{ */
+	/* padding-bottom: 8px; */
+	/* padding-top:8px; */
+	/* border-bottom : 1px solid #eee; */
+/* } */
+.chat-list-single span{
+	font-size:0.8em;
+}
+.chat-list-single hr{
+	margin-top: 10px;
+}
+.del-btn{
+	outline:none;
+	background-color: inherit;
+	width: 21px;
+	height: 21px;
+	position: absolute;
+	top:-10px;
+	right: 15px;
+}
+
+.push-box{
+	background-color: #f8f8f8;
+	margin: 10px 0;
+}

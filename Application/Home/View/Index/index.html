@@ -1,0 +1,335 @@
+<?php
+    $jssdk = new \Org\Jssdk("wx0bcc58e7cb182a1f", "6bca2d2e1e4a0892b462590aec81716f");
+    $signPackage = $jssdk->GetSignPackage();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="__PUBLIC__/static/publish/css/reset.css">
+    <!-- <link rel="stylesheet" href="__PUBLIC__/static/resetcss/normalize.css"> -->
+    <link rel="stylesheet" href="__PUBLIC__/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/static/goods/GoodsStyle.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/publish/css/style.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/loading/css/loading.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/index/indexStyle.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/static/footer/footerStyle.css">
+    <script src='//cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+    <script src='//cdn.bootcss.com/jquery/1.11.3/jquery.js'></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="__PUBLIC__/static/jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+        function MVC(p,c,a){
+            return "{:U('"+p+"/"+c+"/"+a+"')}";
+        }
+        var path = "__PUBLIC__/";
+        //点击商品跳转到详情页
+        function detail(id){
+            var classID = MVC('Home','Classify','classify');
+            $.post(MVC('Home','Classify','saveClassify'),{classID:id},function (data) {
+                    if(data){
+                        window.location.href = classID;
+                    }else{
+                        layer.open({
+                            content:'页面跳转失败',
+                        })
+                    }
+            });
+        }
+
+    </script>
+    <script src="__PUBLIC__/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/Home/static/footer.js"></script>
+
+    <script src="__PUBLIC__/static/vue/vue.js"></script>
+    <script src="__PUBLIC__/static/vue/vue-resource.js"></script>
+    <script src="__PUBLIC__/static/layer/mobile/layer.js"></script>
+    <script src="__PUBLIC__/Home/js/index/hammer.js"></script>
+    <script src="__PUBLIC__/Home/static/BubbleTip.js"></script> <!--气泡提示-->
+    <script src="__PUBLIC__/static/loading/js/Loading.js"></script> <!--页面加载等待-->
+    <script src="__PUBLIC__/Home/js/index/index.js"></script>
+    <link rel='stylesheet' href='__PUBLIC__/static/sendMsg/css/animate.min.css'>
+    <link rel="stylesheet" href="__PUBLIC__/static/sendMsg/css/notification.css">
+    <script src="__PUBLIC__/static/sendMsg/js/notification.js"></script>
+    <script src="__PUBLIC__/Home/static/push.js"></script>
+
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=5dfe3acbd9f803a2de729dada42b04da"></script>
+</head>
+<body>
+<div class="publish-img"><img src="__PUBLIC__/Home/img/images/public_secret.png">
+    <div class="close"><img src="__PUBLIC__/Home/img/xianyu/taolive_close.png"></div>
+</div>
+    <!--头部-->
+    <div id="header">
+        <header >
+            <div class="container-fluid theme-style" style="background-color: #ffda45;padding-top: 5px;padding-bottom: 3px;">
+                <div class="row address">
+                    <div class="col-sm-1 col-xs-1 text-center">
+                        <img src="__PUBLIC__/Home/img/xianyu/post_location_icon_black.png" style="width:15px; max-height: 20px;margin-bottom: 5px;">
+                    </div>
+                    <div class="col-sm-2 col-xs-2  text-left" id="location">
+                        <nobr onclick="map()" id="city">未知</nobr>
+                    </div>
+                    <div class="col-sm-7 col-xs-7">
+                        <form>
+                            <div class="form-group">
+                                <input id="sch-input" type="text" class="form-control input-sm" placeholder="输入要搜索的商品或用户" >
+                                <button type="button" id="sec-btn"><img src="__PUBLIC__/Home/img/xianyu/choose_city_search.png" ></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2 col-xs-2 text-center list">
+                        <!-- <img src="__PUBLIC__/Home/img/images/list.png" class="img-responsive pull-right"> -->
+                        <span id="classify" class="glyphicon glyphicon-th-list"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- <my-component v-bind:val="v" v-bind:isShow="hideDiv"></my-component> -->
+        <div class="search-info">
+            <div class="row" >
+                <div class="col-sm-2 col-xs-2" style="padding-right: 0;">
+                    <img src="__PUBLIC__/Home/img/xianyu/alipay_msp_user.png" class="img-responsive">
+                </div>
+                <div class="col-sm-10 col-xs-10">
+                    搜索 '<span class="text-danger show-val"></span>' 相关商品。
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 col-xs-2" style="padding-right: 0;">
+                    <img src="__PUBLIC__/Home/img/xianyu/alipay_msp_user.png" class="img-responsive">
+                </div>
+                <div class="col-sm-10 col-xs-10">
+                    搜索 '<span class="text-danger show-val"></span>' 相关用户。
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--body部-->
+    <div class="container-fluid" id="content">
+        <!--轮播-->
+        <div class="row">
+            <div id="myCarousel" class="carousel slide">
+                <!-- 轮播（Carousel）指标 -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <!-- 轮播（Carousel）项目 -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <a href="">
+                            <img src="__PUBLIC__/Home/img/images/banner_scroll_1.jpg" class="img-responsive" style="width:100%" alt="First slide">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <img src="__PUBLIC__/Home/img/images/banner_scroll_2.jpg" class="img-responsive" style="width:100%" alt="Second slide">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <img src="__PUBLIC__/Home/img/images/banner_scroll_4.jpg" class="img-responsive" style="width:100%" alt="Third slide">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--分类导航-->
+        <div class="row text-center classify-bar">
+            <div class="col-sm-3 col-xs-3">
+                <a href="#" onclick='detail(1)' class="indexcase text-center">
+                    <img src="__PUBLIC__/Home/img/images/s1.jpg" class="img-responsive" />
+                    <!-- <span>数码</span> -->
+                </a>
+            </div>
+            <div class="col-sm-3 col-xs-3">
+                <a href="#" onclick='detail(2)' >
+                    <img src="__PUBLIC__/Home/img/images/s4.jpg" class="img-responsive" />
+                    <!-- <span>户外</span> -->
+                </a>
+            </div>
+            <div class="col-sm-3 col-xs-3">
+                <a href="#" onclick='detail(3)' >
+                    <img src="__PUBLIC__/Home/img/images/s3.jpg" class="img-responsive" />
+                    <!-- <span>服饰</span> -->
+                </a>
+            </div>
+            <div class="col-sm-3 col-xs-3">
+                <a href="#" onclick='detail(4)' >
+                    <img src="__PUBLIC__/Home/img/images/s5.jpg" class="img-responsive" />
+                    <!-- <span>家具</span> -->
+                </a>
+            </div>
+            <div class="col-sm-3 col-xs-3">
+                <a href="#" onclick='detail(5)' >
+                    <img src="__PUBLIC__/Home/img/images/s6.jpg" class="img-responsive" />
+                    <!-- <span>手表</span> -->
+                </a>
+            </div>
+            <div class="col-sm-3 col-xs-3">
+                <a href="#" onclick='detail(6)' >
+                    <img src="__PUBLIC__/Home/img/images/s7.jpg" class="img-responsive" />
+                    <!-- <span>箱包</span> -->
+                </a>
+            </div>
+            <div class="col-sm-3 col-xs-3">
+                <a href="#" onclick='detail(7)' >
+                    <img src="__PUBLIC__/Home/img/images/s8.jpg" class="img-responsive" />
+                    <!-- <span>家电</span> -->
+                </a>
+            </div>
+            <div class="col-sm-3 col-xs-3">
+                <a href="#" onclick='detail(8)' >
+                    <img src="__PUBLIC__/Home/img/images/s2.jpg" class="img-responsive" />
+                    <!-- <span>玩具</span> -->
+                </a>
+            </div>
+        </div>
+        <!-- 拍卖品 -->
+        <div class="row" id="auction">
+            <div class="col-xs-12 col-sm-12 auction">
+                <h3 class='text-center'>
+                    <img src="__PUBLIC__/Home/img/images/star2.png">
+                    <span><img src="__PUBLIC__/Home/img/images/p_goods.png"></span>
+                </h3>
+                <div class='row'>
+                    <template v-for="v in resivedGoods">
+                        <div class="col-xs-6 col-sm-6 auction-goods" :p_id="v.p_id" @click="goodsDetail(v.p_id)">
+                            <a href="javascript:">
+                                <img :src="v.img" class='img-responsive' >
+                                <!-- <h5 class="text-right text-danger"><img src="__PUBLIC__/Home/img/images/now_p.png" ></h5> -->
+                                <p class="text-left">
+                                    {{v.p_name}}
+                                </p>
+                            </a>
+                        </div>
+                    </template>
+                </div>
+                <div class="col-sm-12 col-xs-12 text-right more">
+                    <a href="{:U('Home/Classify/pclassify')}"></a>
+                </div>
+            </div>
+        </div>
+        <!--广告-->
+        <!-- <div class="row">
+            <img src="__PUBLIC__/Home/img/images/ad.jpg" class="img-responsive" style="width:100%">
+        </div> -->
+        <!--新鲜的、附近的-->
+        <div class="row" id="app2">
+            <!-- 标题 -->
+            <div class="col-sm-12 col-xs-12" id="menu-wrap">
+                <div class="menu">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <ul class="nav navbar-nav">
+                            <li  role="presentation" class="col-sm-4 col-xs-4 col-sm-offset-1 col-xs-offset-1  text-center" flag='0' v-on:click="get($event)" :class="{active:isActive}">
+                                <a href="javascript:">新鲜的</a>
+                            </li>
+
+                            <li  role="presentation" class="col-sm-4 col-xs-4 col-sm-offset-2 col-xs-offset-2 text-center" flag='1' v-on:click='get($event)' :class="{active:!isActive}">
+                                <a href="javascript:">附近的</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- 商品 -->
+            <div class="col-sm-12 col-xs-12 show-goods">
+
+                <signal-goods v-for="val in goodsList" :goods="val" :imgs='imgArr'></signal-goods>
+                <div class="row text-center" v-if="loadState == 1" style="background-color: #eee;line-height: 40px">
+                    正在加载...
+                </div>
+                <div class="row text-center" v-else-if="loadState == 2" style="background-color: #eee;line-height: 40px">
+                    暂无更多数据.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!--尾部，（底部固定导航）-->
+    <footer  id="footer">
+
+    </footer>
+    <!--分类模块-->
+    <div class="my-classify" id="app1">
+        <div class="container con-my-publish">
+            <div class="row my-publish">
+                <div class="col-xs-4 col-xs-offset-4 text-center my-publish-title">类目</div>
+            </div>
+        </div>
+        <div class="container classify">
+            <todo-item  v-for="item in List" v-bind:todo="item">
+
+            </todo-item>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        wx.config({
+            debug: false,
+            appId: '<?php echo $signPackage["appId"];?>',
+            timestamp: '<?php echo $signPackage["timestamp"];?>',
+            nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+                signature: '<?php echo $signPackage["signature"];?>',
+                jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+            'chooseImage',
+            'previewImage',
+            "openLocation",
+            "getLocation",
+            "chooseImage",
+            "uploadImage",
+            "downloadImage",
+            "getLocation"
+        ]
+        });
+
+        wx.ready(function () {
+            wx.getLocation({
+                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: function (res) {
+                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                    var speed = res.speed; // 速度，以米/每秒计
+                    var accuracy = res.accuracy; // 位置精度
+                    AMap.service('AMap.Geocoder',function () {
+                        geocoder = new AMap.Geocoder({
+                            city: "010"//城市，默认：“全国”
+                        });
+
+                        var lnglatXY=[longitude,latitude];//地图上所标点的坐标
+                        geocoder.getAddress(lnglatXY, function(status, result) {
+                            if (status === 'complete' && result.info === 'OK') {
+                                //获得了有效的地址信息:
+                                //即，result.regeocode.formattedAddress
+                                var add = MVC('Home','Index','address');
+                                //判断是否是直辖市
+                                if(result.regeocode.addressComponent.city){
+                                    $("#city").html(result.regeocode.addressComponent.city)
+                                    $.post(add,{longitude:longitude,latitude:latitude,add:result.regeocode.addressComponent.city},function (data) {
+//                                        alert(data)
+                                    })
+                                }else {
+                                    $("#city").html(result.regeocode.addressComponent.province)
+                                    $.post(add,{longitude:longitude,latitude:latitude,add:result.regeocode.addressComponent.province},function (data) {
+                                        alert(data)
+                                    })
+                                }
+                            }else{
+                                //获取地址失败
+                                layer.alert('获取定位失败，请重新进入');
+                            }
+                        });
+                    })
+                }
+            });
+        })
+    </script>
+</body>
+</html>
